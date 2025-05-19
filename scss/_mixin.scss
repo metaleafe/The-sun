@@ -1,0 +1,19 @@
+// @use 'variables' as v;
+
+// $tab: 1023px;
+$tab: 1023px;
+
+@mixin tab {
+  @media (max-width: $tab) {
+    @content;
+  }
+}
+
+// $sp: 767px;
+$sp: 767px;
+
+@mixin sp {
+  @media (max-width: $sp) {
+    @content;
+  }
+}

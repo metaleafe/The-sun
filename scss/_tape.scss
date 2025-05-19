@@ -1,0 +1,73 @@
+@use 'variables' as v;
+@use 'mixin' as m;
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  .marquee-inner {
+    display: flex;
+    width: max-content;
+    animation: scroll-loop 20s linear infinite;
+    & span {
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+      font-size: 128px;
+      font-weight: bold;
+      color: v.$navy;
+      filter: drop-shadow(0 0 1px #fafafa) drop-shadow(0 0 1px #fafafa)
+        drop-shadow(0 0 1px #fafafa) drop-shadow(0 0 1px #fafafa); // 重ねて太さ出す
+    }
+  }
+}
+
+@keyframes scroll-loop {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.cos {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 400px;
+  margin-bottom: 80px;
+  background: #a4bed3;
+
+  .countdown {
+    position: relative;
+    z-index: 2;
+  }
+
+  .infinite-scroll {
+    position: absolute;
+    top: 145.5px;
+	// transform: translateY(-50%);
+    display: flex;
+    white-space: nowrap;
+    animation: scroll-text 180s linear infinite; // 45秒でゆっくりスクロール
+    z-index: 1;
+  }
+
+  .infinite-scroll span {
+    font-size: 80px;
+    color: #ffffff;
+    margin-right: 50px;
+  }
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0); // ページロード時から見える
+  }
+  100% {
+    transform: translateX(-100%); // 全て流れ終わる
+  }
+}

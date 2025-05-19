@@ -1,0 +1,269 @@
+@use 'variables' as v;
+@use 'mixin' as m;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+html {
+  font-size: 100%;
+  //   scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: v.$white;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: v.$navy;
+}
+
+li {
+  list-style: none;
+}
+
+.site-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: v.$navy;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  z-index: 100;
+  will-change: transform; /* GPUに載せる */
+  //スライスして横から表示
+  .headline {
+    /* 初期CSS */
+    .visuallyHidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: -1px !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      clip: rect(0 0 0 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+    //スライスして横から表示
+    .text {
+      //   overflow: hidden;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: v.$navy;
+      font-size: 250px;
+      font-weight: bold;
+      font-style: italic;
+      z-index: 100;
+      //   text-transform: lowercase;
+      //   text-transform: capitalize;
+      @include m.tab {
+        font-size: 180px;
+      }
+      @include m.sp {
+        font-size: 100px;
+      }
+      &.is-active {
+        --skewX: 0deg;
+        --x: 0;
+        .text1,
+        .text2,
+        .text3 {
+          transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+          text-transform: none !important;
+        }
+        .text2,
+        .text3 {
+          position: absolute;
+        }
+        .text1 {
+          mask-image: linear-gradient(to bottom, #000 33.3%, transparent 33.3%);
+          transform: translateX(var(--x, -110%)) skewX(var(--skewX, 40deg));
+        }
+
+        .text2 {
+          mask-image: linear-gradient(
+            to bottom,
+            transparent 33.3%,
+            #000 33.3%,
+            #000 66.6%,
+            transparent 66.6%
+          );
+          transform: translateX(var(--x, 110%)) skewX(var(--skewX, -40deg));
+        }
+
+        .text3 {
+          mask-image: linear-gradient(to bottom, transparent 66.6%, #000 66.6%);
+          transform: translateX(var(--x, -110%)) skewX(var(--skewX, 40deg));
+        }
+      }
+    }
+  }
+  p {
+    font-size: 80px;
+    font-style: italic;
+    font-weight: bold;
+    @include m.tab {
+      font-size: 60px;
+    }
+    @include m.sp {
+      font-size: 42px;
+    }
+  }
+}
+
+/* デフォルトのスタイル */
+.site-title .text {
+  text-transform: none; /* そのまま表示 */
+}
+
+/* event.html の場合 */
+.page-event .text {
+  text-transform: none; /* 大文字小文字を混在 */
+}
+
+/* faq.html の場合 */
+.page-faq .text {
+  text-transform: uppercase; /* 全て大文字に変換 */
+}
+
+.isolated-svg {
+  isolation: isolate; /* 他のDOMツリーと隔離 */
+  will-change: transform, opacity;
+  pointer-events: auto;
+}
+
+/* 各セクション見出し */
+.sub-title {
+  margin: 80px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  .sub-title-text {
+    font-size: 64px;
+    line-height: 1;
+    color: v.$navy;
+    text-align: center;
+  }
+  p {
+    font-size: 15px;
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+.js-text-effect span {
+  display: inline-block; //必須
+  opacity: 0;
+  visibility: visible;
+  transform: rotateY(90deg);
+}
+
+/* hover tip */
+
+body:hover:after {
+  content: 'Hover to Slow Motion';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1vh;
+  color: #1c1c1c;
+  text-align: center;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  font: 700 9px/14px Tahoma, sans-serif;
+  animation: tip 2.5s forwards; // ここを修正
+}
+
+@keyframes tip {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  10%,
+  80% {
+    opacity: 1;
+  }
+}
+
+.text.is-active .char {
+  --opacity: 1;
+  --scale: 1;
+}
+
+/* アニメーションの初期状態 */
+.char {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* is-active が付いたらアニメーション */
+.char.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*========= LoadingのためのCSS ===============*/
+
+/* Loading背景画面設定　*/
+#splash {
+  /*fixedで全面に固定*/
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: v.$white;
+  text-align: center;
+  color: v.$navy;
+}
+
+/* Loading画像中央配置　*/
+#splash_logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Loading アイコンの大きさ設定　*/
+#splash_logo svg {
+  width: 500px;
+}
+
+/*=============== SVGアニメーション内の指定 =================*/
+
+/*アニメーション前の指定*/
+#mask path {
+  fill-opacity: 0; /*最初は透過0で見えない状態*/
+  transition: fill-opacity 0.5s; /*カラーがつく際のアニメーション0.5秒で変化*/
+  fill: none; /*塗りがない状態*/
+  stroke: v.$navy; /*線の色*/
+}
+
+/*アニメーション後に.doneというクラス名がで付与された時の指定*/
+#mask.done path {
+  fill: v.$navy; /*塗りの色*/
+  fill-opacity: 1; /*透過1で見える状態*/
+  stroke: none; /*線の色なし*/
+}

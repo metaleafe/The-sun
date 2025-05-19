@@ -1,0 +1,40 @@
+@use 'variables' as v;
+@use 'mixin' as m;
+
+
+/* タイムテーブル
+   ----------------------------- */
+.event-flow{
+  margin: 0 100px;
+  text-align: center;
+  @include m.tab{
+    margin: v.$tab_spase;
+  }
+  @include m.sp{
+    margin: v.$sp-spase;
+  }
+}
+
+.flow {
+  display: inline-block;  
+
+  li {
+    display: flex;
+    align-items: center;
+    margin: 20px auto;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    time {
+      color: v.$white;
+      background-color: v.$navy;
+      padding: 40px 30px;
+      margin-right: 50px;
+      border-radius: 50%;
+    }
+
+  }
+}
+
+

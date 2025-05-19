@@ -1,0 +1,187 @@
+
+@use 'variables' as v;
+@use 'mixin' as m;
+
+.faq {
+  background: v.$navy;
+  padding: 150px 0 60px;
+  position: relative;
+  /* ふわふわ浮くクエスチョンマーク
+   ----------------------------- */
+  .updown {
+    width: 300px;
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    text-align: center;
+    margin: 50px 0;
+    animation: updown 3s ease-in-out infinite;
+        @include m.tab {
+          width: 200px;
+          top: 10%;
+        }
+    a {
+      position: relative;
+      display: inline-block;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 97%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-top: 25px solid #eb9041;
+        border-left: 25px transparent solid;
+        border-right: 25px transparent solid;
+        z-index: -1;
+        @include m.tab {
+          border-top: 10px solid #eb9041;
+          border-left: 10px transparent solid;
+          border-right: 10px transparent solid;
+        }
+      }
+
+      .question {
+        width: 100%;
+        background: linear-gradient(
+          145deg,
+          v.$white 0%,
+          #e2bca3 1%,
+          #ff9a44 40%,
+          v.$orange 100%
+        );
+        padding: 100px;
+        border-radius: 50%;
+        @include m.tab {
+          max-width: 90%;
+          padding: 50px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes updown {
+  0% {
+    transform: translate(-50%, -50%) rotateY(0);
+  }
+  50% {
+    transform: translate(-50%, calc(-70%)) rotateY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateY(0);
+  }
+}
+
+
+/* 背景の楕円
+   ----------------------------- */
+.faq-wrapper {
+  overflow: hidden;
+  position: relative;
+  .faq-top {
+    width: 125vw;
+    height: auto;
+    aspect-ratio: 2 / 1; 
+    background: v.$white;
+    border-radius: 50% / 40%;
+    margin-left: -12.5vw;
+    padding: 300px 40px;
+    position: relative;
+    z-index: 1;
+    @include m.tab {
+      padding: 130px 40px;
+    }
+  }
+}
+
+
+/* アコーディオンメニュー
+   ----------------------------- */
+.accordion-area {
+  margin: v.$pc-spase;
+  @include m.tab {
+    margin: v.$tab-spase;
+  }
+  @include m.sp {
+    margin: v.$sp-spase;
+  }
+
+  .accordion-item {
+    background: v.$lb;
+    border-radius: 12px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    max-width: 60%;
+    margin: 0 auto 30px;
+    @include m.tab {
+      max-width: 80%;
+    }
+    @include m.sp {
+      max-width: 90%;
+    }
+
+    .accordion-header {
+      width: 100%;
+      background: transparent;
+      color: v.$white;
+      padding: 25px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      cursor: pointer;
+      position: relative;
+      @include m.tab {
+        font-size: 16px;
+      }
+
+      &::before {
+        content: 'Q | ';
+        margin-right: 8px;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background-image: url(/img/矢印.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        transition: transform 0.3s ease;
+      }
+
+      &.active::after {
+        transform: translateY(-50%) scaleY(-1);
+      }
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      background: v.$white;
+      padding: 0 20px;
+      font-size: 20px;
+      color: v.$navy;
+      transition: max-height 0.5s ease, padding 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      border: 2px solid v.$lb;
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+
+      p {
+        margin: 10px 0;
+      }
+    }
+
+    &.open .accordion-content {
+      max-height: 500px;
+      padding: 10px 10px;
+      opacity: 1;
+    }
+  }
+}

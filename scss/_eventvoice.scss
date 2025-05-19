@@ -1,0 +1,100 @@
+@use 'variables' as v;
+@use 'mixin' as m;
+
+/* イベントボイスカード
+   ----------------------------- */
+.event-voice {
+  max-width: 100%;
+  margin: v.$pc-spase;
+  margin-bottom: 100px;
+  &-content {
+    display: flex;
+    justify-content: space-around;
+    @include m.tab {
+      display: block;
+    }
+    &-card {
+      width: 32%;
+      border-radius: 30px;
+      @include m.tab {
+        width: 100%;
+        padding: v.$tab_spase;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        font-size: 22px;
+      }
+      @include m.sp {
+        width: 100%;
+        padding: v.$sp-spase;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        font-size: 18px;
+      }
+      .cap {
+        color: v.$white;
+        padding: 45px;
+      }
+      p {
+        color: v.$white;
+        text-align: center;
+        padding-bottom: 30px;
+      }
+      .article {
+        line-height: 2;
+      }
+    }
+  }
+}
+
+.color {
+  background-color: v.$lb;
+  border-radius: 30px;
+}
+
+/* 回転Y軸
+   ----------------------------- */
+
+.flipY a {
+  /*テキストの基点となる位置を定義*/
+  position: relative;
+  display: block;
+  .color {
+    transition: all 0.35s ease; /*移り変わる速さを変更したい場合はこの数値を変更*/
+    backface-visibility: hidden; /*三次元になった際に裏面を可視化させない*/
+  }
+}
+
+.flipY a:hover .color {
+  /*hoverした時の変化*/
+  transform: rotateY(-180deg);
+  opacity: 0;
+}
+
+.flipY span.cap {
+  /*ここからエリアの絶対配置の指定*/
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /*ここまでエリアの絶対配置の指定*/
+  transition: all 0.35s ease; /*移り変わる速さを変更したい場合はこの数値を変更*/
+  transform: rotateY(90deg); /*横軸に回転*/
+  transform-origin: 50% 0%; /*回転する基点*/
+  opacity: 0;
+  background: v.$orange; /*背景色*/
+  color: v.$white; /*テキストの色を変えたい場合はここを修正*/
+  border-radius: 30px;
+  /*ここからテキスト中央寄せの指定*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*ここまでテキスト中央寄せの指定*/
+}
+
+.flipY a:hover span.cap {
+  /*hoverした時の変化*/
+  transform: rotateY(0); /*横軸に回転*/
+  opacity: 1;
+  transition-delay: 0.15s; /*移り変わる速さを変更したい場合はこの数値を変更*/
+}

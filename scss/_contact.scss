@@ -1,0 +1,222 @@
+@use 'variables' as v;
+@use 'mixin' as m;
+
+#footer {
+  background-color: v.$navy;
+  color: v.$white;
+  position: relative;
+  .sub-title {
+	margin-top: 0;
+	margin-bottom: 0;
+    .sub-title-text {
+      padding-top: 80px;
+      font-size: 64px;
+      line-height: 1;
+      color: v.$white;
+      text-align: center;
+    }
+    p {
+      font-size: 15px;
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+    }
+  }
+  .footer-container {
+    width: 100%;
+    height: auto;
+    @include m.tab{
+      display: block;
+      padding: 50px 0;
+    }
+    .content1,
+    .content2 {
+      width: 50%;
+      text-align: center;
+      z-index: 10;
+      @include m.tab{
+        width: 70%;
+        margin:  0 auto;
+      }
+      & img {
+        width: 40%;
+        object-fit: cover;
+        @include m.tab{
+          width: 40%;
+        }
+      }
+      & p {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .btn {
+        display: flex;
+        justify-content: center;
+        & a {
+          position: relative;
+          display: block;
+          border-radius: 30px;
+          background-color: #fff;
+          font-size: 50px;
+          font-weight: 700;
+          text-decoration: none;
+          text-align: center;
+          transition: 0.2s;
+          box-sizing: border-box;
+          margin: 0 15px;
+        }
+      }
+    }
+  }
+}
+
+.btn .btn-flash {
+  position: relative; /* positionをrelativeに設定 */
+}
+
+.icon-line {
+  display: inline-block; /* aタグをブロック要素として扱う */
+  overflow: hidden;
+  position: relative;
+  color: #21be78;
+ /* 下線を消す */
+  padding: 10px 20px; /* 内側の余白を設定 */
+  transition: background-color 0.5s; /* 背景色のトランジション */
+}
+
+.icon-instagram {
+  display: inline-block; /* aタグをブロック要素として扱う */
+  overflow: hidden;
+  position: relative;
+  text-decoration: none; /* 下線を消す */
+  padding: 10px 21px; /* 内側の余白を設定 */
+  transition: background-color 0.5s; /* 背景色のトランジション */
+}
+
+.icon-instagram i {
+  background: linear-gradient(
+    135deg,
+    #ffdc80,
+    #ff9b5e,
+    #e4405f,
+    #c13584,
+    #833ab4,
+    #5851db,
+    #405de6
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-flash a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  transition: 0.5s;
+}
+
+/* ホバー時のスタイル */
+/* ホバー時のスタイル */
+.btn-flash a:hover::before {
+  left: 100%; /* 左から右にスライドする */
+}
+
+.icon-line:hover {
+  background: #21be78 !important; /* ホバー時の背景色 */
+  color: #fff !important; /* ホバー時の文字色 */
+}
+
+.icon-instagram:hover {
+  background: linear-gradient(
+    135deg,
+    #ffdc80,
+    #ff9b5e,
+    #e4405f,
+    #c13584,
+    #833ab4,
+    #405de6
+  );
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.0001);
+}
+
+.icon-instagram:hover i {
+  // -webkit-background-clip: border-box;
+  -webkit-text-fill-color: #fff;
+  background: none;
+  // color: #fff;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer-container p {
+  font-size: 1.2rem;
+}
+
+.footer-inline {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.footer-inline a {
+  // display: flex;
+  border-bottom: 1px solid white;
+  // justify-content: center;
+  color: #ffffff;
+  font-weight: normal;
+}
+
+.footer-last {
+	text-align: center;
+  padding-bottom: 20px;
+  p {
+    padding-top: 20px;
+  }
+}
+
+
+.footer-container {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    // pointer-events: none;
+}
+
+.thank {
+    position: absolute;
+    top: -5%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    z-index: 0;
+    font-size: 250px;
+    width: 100%;
+    font-family: "Anton", sans-serif;
+    color: #ffffff5a;
+
+    @include m.tab{
+      font-size: 230px;
+      z-index: 0;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    @include m.sp{
+      font-size: 170px;
+
+    }
+}

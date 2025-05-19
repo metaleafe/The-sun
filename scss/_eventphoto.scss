@@ -1,0 +1,67 @@
+@use 'variables' as v;
+@use 'mixin' as m;
+
+
+/* 思い出の写真
+   ----------------------------- */
+.event-photo-wrapper {
+  margin: 0 100px;
+  max-width: 100%;
+  padding: 60vh 0;
+  perspective: 1000px;
+  @include m.tab {
+    margin: 0 32px;
+    padding: 20vh 0 60vh;
+  }
+  @include m.sp {
+    margin: 0 15px;
+  }
+  .event-photo-img {
+    padding: 30px 30px 60px;
+    background-color: #f2f0ec;
+    box-shadow: 10px 10px 30px -5px #777777;
+
+    display: block;
+    width: 100%;
+    margin: -200px auto;
+    transform: translate(200px, 200px) rotate(-10deg);
+    opacity: 1;
+    will-change: transform, opacity;
+  }
+}
+
+.event-photo {
+  position: relative;
+}
+
+
+/* 流れる寝ている陽ちゃん
+   ----------------------------- */
+.move-area {
+      /* 画像の動く範囲（必要なサイズに調整可） */
+      position: relative;
+      width: 100vw;
+      height: 300px;
+      overflow: hidden;
+      background: v.$white;
+      .move-img {
+        position: absolute;
+        top: 43%;
+        left: 100%; /* 画面右端からスタート */
+        transform: translateY(-50%);
+        width: 200px;
+        height: auto;
+        animation: moveLeft 10s linear infinite;
+        /* ↑ 10秒かけて左へ、無限ループ */
+      }
+    }
+
+
+    @keyframes moveLeft {
+      0% {
+        left: 100%;
+      }
+      100% {
+        left: -200px; /* 画像の横幅分、画面外まで移動 */
+      }
+    }
